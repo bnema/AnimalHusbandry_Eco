@@ -29,7 +29,7 @@ namespace Eco.Mods.TechTree
     [Serialized]
     [LocDisplayName("Cow")]
     [Weight(5500)]      
-    [Ecopedia("Natural Resources", "Animal", createAsSubPage: true, display: InPageTooltip.DynamicTooltip)]                                                                           
+    [Ecopedia("Natural Resources", "Animal", createAsSubPage: true)]                                                                           
     public partial class CowItem :
     Item                                    
     {

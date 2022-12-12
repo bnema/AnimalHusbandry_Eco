@@ -28,8 +28,9 @@ namespace Eco.Mods.TechTree
 
     [Serialized]
     [LocDisplayName("Sheep")]
-    [Weight(2000)]      
-    [Ecopedia("Natural Resources", "Animal", createAsSubPage: true, display: InPageTooltip.DynamicTooltip)]                                                                           
+    [Weight(2000)]
+    // Since latest update "Changed: Due to changing the tooltip system used for Ecopedia all item and object overrides will need to be adjusted, specifically the attribute "display: InPageTooltip.DynamicTooltip" for Ecopedia needs to be removed.
+    [Ecopedia("Natural Resources", "Animal", createAsSubPage: true)]                                                                         
     public partial class SheepItem :
     Item                                    
     {

@@ -16,7 +16,7 @@ namespace Eco.Mods.TechTree
     [LocDisplayName("Fresh Milk")]
     [Tag("Raw Food", 1)]
     [Weight(10)]
-    [Ecopedia("Food", "Produce", createAsSubPage: true, display: InPageTooltip.DynamicTooltip)]
+    [Ecopedia("Food", "Produce", createAsSubPage: true)]
     public partial class FreshMilkItem : FoodItem
     {
         public override LocString DisplayNamePlural     => Localizer.DoStr("Fresh Milk");

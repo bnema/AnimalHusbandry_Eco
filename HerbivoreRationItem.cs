@@ -15,10 +15,10 @@ namespace Eco.Mods.TechTree
     [LocDisplayName("Herbivore Ration")]
     [Weight(300)]
     [Tag("Salad", 1)]
-    [Ecopedia("Food", "Cooking", createAsSubPage: true, display: InPageTooltip.DynamicTooltip)]
+    [Ecopedia("Food", "Cooking", createAsSubPage: true)]
     public partial class HerbivoreRationItem : FoodItem
     {
-        public override LocString DisplayDescription    => Localizer.DoStr("Works as a Ration for animals that eat plants.");
+        public virtual LocString DisplayDescription    => Localizer.DoStr("Works as a Ration for animals that eat plants.");
         
         public override float Calories                  => 800;
         public override Nutrients Nutrition             => new Nutrients() { Carbs = 18, Fat = 4, Protein = 6, Vitamins = 10};

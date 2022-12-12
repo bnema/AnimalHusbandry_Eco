@@ -69,7 +69,7 @@ namespace Eco.Mods.TechTree
     [Serialized]
     [LocDisplayName("ModernButchery Upgrade")]
     [Weight(1)]      
-    [Ecopedia("Upgrade Modules", "Specialty Upgrades", createAsSubPage: true, display: InPageTooltip.DynamicTooltip)]                                                                           
+    [Ecopedia("Upgrade Modules", "Specialty Upgrades", createAsSubPage: true)]                                                                           
     [Tag("Upgrade", 1)]
     public partial class ModernButcheryUpgradeItem :
         EfficiencyModule 

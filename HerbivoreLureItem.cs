@@ -15,7 +15,7 @@ namespace Eco.Mods.TechTree
     [LocDisplayName("Herbivore Lure")]
     [Weight(300)]
     [Tag("Salad", 1)]
-    [Ecopedia("Food", "Cooking", createAsSubPage: true, display: InPageTooltip.DynamicTooltip)]
+    [Ecopedia("Food", "Cooking", createAsSubPage: true)]
     public partial class HerbivoreLureItem : FoodItem
     {
         public override LocString DisplayDescription    => Localizer.DoStr("Works as a lure for animals that eat plants.");

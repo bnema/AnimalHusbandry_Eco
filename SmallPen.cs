@@ -56,7 +56,7 @@ namespace Eco.Mods.TechTree
             this.ModsPostInitialize();
         }
 
-        public override void Destroy()
+        public virtual void Destroy()
         {
             base.Destroy();
         }
@@ -86,7 +86,7 @@ namespace Eco.Mods.TechTree
 
     [Serialized]
     [LocDisplayName("Small Pen")]
-    [Ecopedia("Crafted Objects", "Storage", createAsSubPage: true, display: InPageTooltip.DynamicTooltip)]
+    [Ecopedia("Crafted Objects", "Storage", createAsSubPage: true)]
     public partial class SmallPenItem : WorldObjectItem<SmallPenObject>
     {
         public override LocString DisplayDescription => Localizer.DoStr("A pen for Cows and sheep.");

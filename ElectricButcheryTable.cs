@@ -36,6 +36,10 @@ namespace Eco.Mods.TechTree
     using Eco.Gameplay.Pipes;
     using Eco.World.Blocks;
     using Eco.Gameplay.Housing.PropertyValues;
+    using Eco.Gameplay.Civics.Objects;
+    using Eco.Gameplay.Settlements;
+    using Eco.Gameplay.Systems.NewTooltip;
+    using Eco.Core.Controller;
     using static Eco.Gameplay.Housing.PropertyValues.HomeFurnishingValue;
 
     [Serialized]
@@ -45,40 +49,36 @@ namespace Eco.Mods.TechTree
     [RequireComponent(typeof(LinkComponent))]
     [RequireComponent(typeof(CraftingComponent))]
     [RequireComponent(typeof(HousingComponent))]
+    [RequireComponent(typeof(SolidAttachedSurfaceRequirementComponent))]
     [RequireComponent(typeof(PluginModulesComponent))]
     [RequireComponent(typeof(RoomRequirementsComponent))]
     [RequireRoomContainment]
     [RequireRoomVolume(45)]
-    [RequireRoomMaterialTier(2.8f, typeof(TailoringLavishReqTalent), typeof(TailoringFrugalReqTalent))]
+    [RequireRoomMaterialTier(2.8f, typeof(ButcheryLavishReqTalent), typeof(ButcheryFrugalReqTalent))]
+    [Ecopedia("Housing Objects", "Kitchen", subPageName: "ElectricButcheryTable Item")]
     public partial class ElectricButcheryTableObject : WorldObject, IRepresentsItem
     {
-        public override LocString DisplayName { get { return Localizer.DoStr("Electric Butchery Table"); } }
+        public virtual Type RepresentedItemType => typeof(ElectricButcheryTableItem);
+        public override LocString DisplayName => Localizer.DoStr("Electric Butchery Table");
         public override TableTextureMode TableTexture => TableTextureMode.Wood;
-        public virtual Type RepresentedItemType { get { return typeof(ElectricButcheryTableItem); } }
 
         protected override void Initialize()
         {
             this.ModsPreInitialize();
-            this.GetComponent<MinimapComponent>().Initialize(Localizer.DoStr("Crafting"));
-            this.GetComponent<HousingComponent>().HomeValue = ElectricButcheryTableItem.HomeValue;
+            this.GetComponent<MinimapComponent>().SetCategory(Localizer.DoStr("Cooking"));
+            this.GetComponent<HousingComponent>().HomeValue = ElectricButcheryTableItem.homeValue;
             this.ModsPostInitialize();
         }
-
-        public override void Destroy()
-        {
-            base.Destroy();
-        }
-
-           static ElectricButcheryTableObject()
-        {
-            AddOccupancy<ElectricButcheryTableObject>(new List<BlockOccupancy>()
-            {
-            new BlockOccupancy(new Vector3i(0, 0, 0)),
-            new BlockOccupancy(new Vector3i(0, 1, 0)),
-            new BlockOccupancy(new Vector3i(-1, 0, 0)),
-            new BlockOccupancy(new Vector3i(-1, 1, 0)),
-            });
-        }
+        //          static ElectricButcheryTableObject()
+        // {
+        //     AddOccupancy<ElectricButcheryTableObject>(new List<BlockOccupancy>()
+        //     {
+        //     new BlockOccupancy(new Vector3i(0, 0, 0)),
+        //     new BlockOccupancy(new Vector3i(0, 1, 0)),
+        //     new BlockOccupancy(new Vector3i(-1, 0, 0)),
+        //     new BlockOccupancy(new Vector3i(-1, 1, 0)),
+        //     });
+        // }
 
         /// <summary>Hook for mods to customize WorldObject before initialization. You can change housing values here.</summary>
         partial void ModsPreInitialize();
@@ -88,52 +88,85 @@ namespace Eco.Mods.TechTree
 
     [Serialized]
     [LocDisplayName("Electric Butchery Table")]
-    [Ecopedia("Work Stations", "Craft Tables", createAsSubPage: true, display: InPageTooltip.DynamicTooltip)]
+    [Ecopedia("Housing Objects", "Kitchen", createAsSubPage: true)]
+    [Tag("Housing", 1)]
     [AllowPluginModules(Tags = new[] { "ModernUpgrade" }, ItemTypes = new[] { typeof(ModernButcheryUpgradeItem) })] //noloc
     public partial class ElectricButcheryTableItem : WorldObjectItem<ElectricButcheryTableObject>, IPersistentData
     {
-        public override LocString DisplayDescription => Localizer.DoStr("An Electric Butchery table.");
+        
+        public override LocString DisplayDescription => Localizer.DoStr("An Electric Butchery table to process raw meat into fancier dishes.");
 
-        [TooltipChildren] public HomeFurnishingValue HousingTooltip { get { return HomeValue; } }
-        public static readonly HomeFurnishingValue HomeValue = new HomeFurnishingValue()
+
+        public override DirectionAxisFlags RequiresSurfaceOnSides { get;} = 0
+                    | DirectionAxisFlags.Down
+                ;
+        public override HomeFurnishingValue HomeValue => homeValue;
+        public static readonly HomeFurnishingValue homeValue = new HomeFurnishingValue()
         {
-            Category                 = RoomCategory.Industrial,
-            TypeForRoomLimit         = Localizer.DoStr(""),
+            Category                 = HousingConfig.GetRoomCategory("Kitchen"),
+            HouseValue               = 4,
+            TypeForRoomLimit         = Localizer.DoStr("Food Preparation"),
+            DiminishingReturnPercent = 0.5f
         };
 
-        [Serialized, TooltipChildren] public object PersistentData { get; set; }
+        [Serialized, SyncToView, TooltipChildren, NewTooltipChildren(CacheAs.Instance)] public object PersistentData { get; set; }
     }
 
-    [RequiresSkill(typeof(IndustrySkill), 1)]
+    /// <summary>
+    /// <para>Server side recipe definition for "ElectricButcheryTable".</para>
+    /// <para>More information about RecipeFamily objects can be found at https://docs.play.eco/api/server/eco.gameplay/Eco.Gameplay.Items.RecipeFamily.html</para>
+    /// </summary>
+    /// <remarks>
+    /// This is an auto-generated class. Don't modify it! All your changes will be wiped with next update! Use Mods* partial methods instead for customization. 
+    /// If you wish to modify this class, please create a new partial class or follow the instructions in the "UserCode" folder to override the entire file.
+    /// </remarks>
+    [RequiresSkill(typeof(CarpentrySkill), 1)]
+    [Ecopedia("Housing Objects", "Kitchen", subPageName: "ElectricButcheryTable Item")]
     public partial class ElectricButcheryTableRecipe : RecipeFamily
     {
         public ElectricButcheryTableRecipe()
         {
             var recipe = new Recipe();
             recipe.Init(
-                "ElectricButcheryTable",  //noloc
-                Localizer.DoStr("Electric Butchery Table"),
-                new List<IngredientElement>
+                name: "ElectricButcheryTable",  //noloc
+                displayName: Localizer.DoStr("Butchery Table"),
+
+                // Defines the ingredients needed to craft this recipe. An ingredient items takes the following inputs
+                // type of the item, the amount of the item, the skill required, and the talent used.
+                ingredients: new List<IngredientElement>
                 {
-                    new IngredientElement(typeof(SteelPlateItem), 20, typeof(IndustrySkill), typeof(IndustryLavishResourcesTalent)),
-                    new IngredientElement(typeof(SteelSawBladeItem), 2, typeof(IndustrySkill), typeof(IndustryLavishResourcesTalent)),
+                    new IngredientElement("HewnLog", 10, typeof(CarpentrySkill), typeof(CarpentryLavishResourcesTalent)), //noloc
+                    new IngredientElement("WoodBoard", 20, typeof(CarpentrySkill), typeof(CarpentryLavishResourcesTalent)), //noloc
                 },
-                new List<CraftingElement>
+
+                // Define our recipe output items.
+                // For every output item there needs to be one CraftingElement entry with the type of the final item and the amount
+                // to create.
+                items: new List<CraftingElement>
                 {
                     new CraftingElement<ElectricButcheryTableItem>()
                 });
             this.Recipes = new List<Recipe> { recipe };
-            this.ExperienceOnCraft = 5;
-            this.LaborInCalories = CreateLaborInCaloriesValue(1000, typeof(IndustrySkill));
-            this.CraftMinutes = CreateCraftTimeValue(typeof(ElectricButcheryTableRecipe), 15, typeof(IndustrySkill), typeof(IndustryFocusedSpeedTalent), typeof(IndustryParallelSpeedTalent));
+            this.ExperienceOnCraft = 3; // Defines how much experience is gained when crafted.
+            
+            // Defines the amount of labor required and the required skill to add labor
+            this.LaborInCalories = CreateLaborInCaloriesValue(300, typeof(CarpentrySkill));
+
+            // Defines our crafting time for the recipe
+            this.CraftMinutes = CreateCraftTimeValue(beneficiary: typeof(ElectricButcheryTableRecipe), start: 2, skillType: typeof(CarpentrySkill), typeof(CarpentryFocusedSpeedTalent), typeof(CarpentryParallelSpeedTalent));
+
+            // Perform pre/post initialization for user mods and initialize our recipe instance with the display name "Butchery Table"
             this.ModsPreInitialize();
-            this.Initialize(Localizer.DoStr("Electric Butchery Table"), typeof(ElectricButcheryTableRecipe));
+            this.Initialize(displayText: Localizer.DoStr("Butchery Table"), recipeType: typeof(ElectricButcheryTableRecipe));
             this.ModsPostInitialize();
-            CraftingComponent.AddRecipe(typeof(ElectricMachinistTableObject), this);
+
+            // Register our RecipeFamily instance with the crafting system so it can be crafted.
+            CraftingComponent.AddRecipe(tableType: typeof(CarpentryTableObject), recipe: this);
         }
 
         /// <summary>Hook for mods to customize RecipeFamily before initialization. You can change recipes, xp, labor, time here.</summary>
         partial void ModsPreInitialize();
+
         /// <summary>Hook for mods to customize RecipeFamily after initialization, but before registration. You can change skill requirements here.</summary>
         partial void ModsPostInitialize();
     }

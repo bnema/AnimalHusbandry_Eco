@@ -36,7 +36,9 @@ namespace Eco.Mods.TechTree
     using Eco.Gameplay.Pipes;
     using Eco.World.Blocks;
     using Eco.Gameplay.Housing.PropertyValues;
-    using static Eco.Gameplay.Housing.PropertyValues.HomeFurnishingValue;
+    using Eco.Gameplay.Civics.Objects;
+    using Eco.Gameplay.Systems.NewTooltip;
+    using Eco.Core.Controller;
 
     [Serialized]
     [RequireComponent(typeof(OnOffComponent))]
@@ -44,28 +46,24 @@ namespace Eco.Mods.TechTree
     [RequireComponent(typeof(MinimapComponent))]
     [RequireComponent(typeof(LinkComponent))]
     [RequireComponent(typeof(CraftingComponent))]
-    [RequireComponent(typeof(HousingComponent))]
+    [RequireComponent(typeof(SolidAttachedSurfaceRequirementComponent))]
     [RequireComponent(typeof(PluginModulesComponent))]
-    [RequireComponent(typeof(RoomRequirementsComponent))]
+    [Ecopedia("Housing Objects", "Kitchen", subPageName: "Animal Feeder")]
     public partial class AnimalFeederObject : WorldObject, IRepresentsItem
     {
-        public override LocString DisplayName { get { return Localizer.DoStr("Animal Feeder"); } }
-        public override TableTextureMode TableTexture => TableTextureMode.Wood;
-        public virtual Type RepresentedItemType { get { return typeof(AnimalFeederItem); } }
+       public virtual Type RepresentedItemType => typeof(AnimalFeederItem);
+       public override LocString DisplayName => Localizer.DoStr("Animal Feeder");
+       public override TableTextureMode TableTexture => TableTextureMode.Wood;
+
 
         protected override void Initialize()
         {
             this.ModsPreInitialize();
-            this.GetComponent<MinimapComponent>().Initialize(Localizer.DoStr("Cooking"));
+            this.GetComponent<MinimapComponent>().SetCategory(Localizer.DoStr("Cooking"));
             this.ModsPostInitialize();
-        }
+        }    
 
-        public override void Destroy()
-        {
-            base.Destroy();
-        }
-
-           static AnimalFeederObject()
+               static AnimalFeederObject()
         {
             AddOccupancy<AnimalFeederObject>(new List<BlockOccupancy>()
             {
@@ -75,7 +73,6 @@ namespace Eco.Mods.TechTree
             new BlockOccupancy(new Vector3i(-1, 1, 0)),
             });
         }
-
         /// <summary>Hook for mods to customize WorldObject before initialization. You can change housing values here.</summary>
         partial void ModsPreInitialize();
         /// <summary>Hook for mods to customize WorldObject after initialization.</summary>
@@ -84,14 +81,16 @@ namespace Eco.Mods.TechTree
 
     [Serialized]
     [LocDisplayName("Animal Feeder")]
-    [Ecopedia("Housing Objects", "Kitchen", createAsSubPage: true, display: InPageTooltip.DynamicTooltip)]
-    [Tag("Housing", 1)]
+    [Ecopedia("Housing Objects", "Kitchen", createAsSubPage: true)]
     [AllowPluginModules(Tags = new[] { "BasicUpgrade" }, ItemTypes = new[] { typeof(AnimalHusbandryUpgradeItem) })] //noloc
     public partial class AnimalFeederItem : WorldObjectItem<AnimalFeederObject>, IPersistentData
     {
         public override LocString DisplayDescription => Localizer.DoStr("A feeder to lure and breed animals.");
 
-        [Serialized, TooltipChildren] public object PersistentData { get; set; }
+        public override DirectionAxisFlags RequiresSurfaceOnSides { get;} = 0
+                    | DirectionAxisFlags.Down
+                ;
+       [Serialized, TooltipChildren] public object PersistentData { get; set; }
     }
 
     [RequiresSkill(typeof(CarpentrySkill), 1)]
