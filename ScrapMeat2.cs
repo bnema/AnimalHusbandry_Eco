@@ -40,7 +40,7 @@ namespace Eco.Mods.TechTree
                     })
             };
             this.ExperienceOnCraft = 5;  
-            this.LaborInCalories = CreateLaborInCaloriesValue(120, typeof(ButcherySkill)); 
+            this.LaborInCalories = CreateLaborInCaloriesValue(15, typeof(ButcherySkill)); 
             this.CraftMinutes = CreateCraftTimeValue(typeof(AdvancedScrapMeatRecipe), 1, typeof(ButcherySkill), typeof(ButcheryFocusedSpeedTalent), typeof(ButcheryParallelSpeedTalent));     
             this.ModsPreInitialize();
             this.Initialize(Localizer.DoStr("Scrap Meat"), typeof(AdvancedScrapMeatRecipe));
