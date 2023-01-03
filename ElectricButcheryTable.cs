@@ -52,6 +52,8 @@ namespace Eco.Mods.TechTree
     [RequireComponent(typeof(SolidAttachedSurfaceRequirementComponent))]
     [RequireComponent(typeof(PluginModulesComponent))]
     [RequireComponent(typeof(RoomRequirementsComponent))]
+    [RequireComponent(typeof(PowerGridComponent))]
+    [RequireComponent(typeof(PowerConsumptionComponent))]												  														 
     [RequireRoomContainment]
     [RequireRoomVolume(45)]
     [RequireRoomMaterialTier(2.8f, typeof(ButcheryLavishReqTalent), typeof(ButcheryFrugalReqTalent))]
@@ -67,18 +69,20 @@ namespace Eco.Mods.TechTree
             this.ModsPreInitialize();
             this.GetComponent<MinimapComponent>().SetCategory(Localizer.DoStr("Cooking"));
             this.GetComponent<HousingComponent>().HomeValue = ElectricButcheryTableItem.homeValue;
+            this.GetComponent<PowerConsumptionComponent>().Initialize(250);
+            this.GetComponent<PowerGridComponent>().Initialize(15, new ElectricPower());
             this.ModsPostInitialize();
         }
-        //          static ElectricButcheryTableObject()
-        // {
-        //     AddOccupancy<ElectricButcheryTableObject>(new List<BlockOccupancy>()
-        //     {
-        //     new BlockOccupancy(new Vector3i(0, 0, 0)),
-        //     new BlockOccupancy(new Vector3i(0, 1, 0)),
-        //     new BlockOccupancy(new Vector3i(-1, 0, 0)),
-        //     new BlockOccupancy(new Vector3i(-1, 1, 0)),
-        //     });
-        // }
+        static ElectricButcheryTableObject()
+		{
+			AddOccupancy<ElectricButcheryTableObject>(new List<BlockOccupancy>()
+            {
+            new BlockOccupancy(new Vector3i(-1, 0, 0)),
+            new BlockOccupancy(new Vector3i(-1, 1, 0)),
+            new BlockOccupancy(new Vector3i(0, 0, 0)),
+            new BlockOccupancy(new Vector3i(0, 1, 0)),
+			});
+		}
 
         /// <summary>Hook for mods to customize WorldObject before initialization. You can change housing values here.</summary>
         partial void ModsPreInitialize();
