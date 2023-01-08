@@ -124,7 +124,7 @@ namespace Eco.Mods.TechTree
     /// This is an auto-generated class. Don't modify it! All your changes will be wiped with next update! Use Mods* partial methods instead for customization. 
     /// If you wish to modify this class, please create a new partial class or follow the instructions in the "UserCode" folder to override the entire file.
     /// </remarks>
-    [RequiresSkill(typeof(CarpentrySkill), 1)]
+    [RequiresSkill(typeof(IndustrySkill), 1)]
     [Ecopedia("Housing Objects", "Kitchen", subPageName: "ElectricButcheryTable Item")]
     public partial class ElectricButcheryTableRecipe : RecipeFamily
     {
@@ -132,40 +132,25 @@ namespace Eco.Mods.TechTree
         {
             var recipe = new Recipe();
             recipe.Init(
-                name: "ElectricButcheryTable",  //noloc
-                displayName: Localizer.DoStr("Butchery Table"),
-
-                // Defines the ingredients needed to craft this recipe. An ingredient items takes the following inputs
-                // type of the item, the amount of the item, the skill required, and the talent used.
-                ingredients: new List<IngredientElement>
+                "ElectricButcheryTable",  //noloc
+                Localizer.DoStr("Electric Butchery Table"),
+                new List<IngredientElement>
                 {
-                    new IngredientElement("HewnLog", 10, typeof(CarpentrySkill), typeof(CarpentryLavishResourcesTalent)), //noloc
-                    new IngredientElement("WoodBoard", 20, typeof(CarpentrySkill), typeof(CarpentryLavishResourcesTalent)), //noloc
+                    new IngredientElement(typeof(SteelPlateItem), 20, typeof(IndustrySkill), typeof(IndustryLavishResourcesTalent)),
+                    new IngredientElement(typeof(SteelSawBladeItem), 2, typeof(IndustrySkill), typeof(IndustryLavishResourcesTalent)),
                 },
-
-                // Define our recipe output items.
-                // For every output item there needs to be one CraftingElement entry with the type of the final item and the amount
-                // to create.
-                items: new List<CraftingElement>
+                new List<CraftingElement>
                 {
                     new CraftingElement<ElectricButcheryTableItem>()
                 });
             this.Recipes = new List<Recipe> { recipe };
-            this.ExperienceOnCraft = 3; // Defines how much experience is gained when crafted.
-            
-            // Defines the amount of labor required and the required skill to add labor
-            this.LaborInCalories = CreateLaborInCaloriesValue(300, typeof(CarpentrySkill));
-
-            // Defines our crafting time for the recipe
-            this.CraftMinutes = CreateCraftTimeValue(beneficiary: typeof(ElectricButcheryTableRecipe), start: 2, skillType: typeof(CarpentrySkill), typeof(CarpentryFocusedSpeedTalent), typeof(CarpentryParallelSpeedTalent));
-
-            // Perform pre/post initialization for user mods and initialize our recipe instance with the display name "Butchery Table"
+            this.ExperienceOnCraft = 5;
+            this.LaborInCalories = CreateLaborInCaloriesValue(1000, typeof(IndustrySkill));
+            this.CraftMinutes = CreateCraftTimeValue(typeof(ElectricButcheryTableRecipe), 15, typeof(IndustrySkill), typeof(IndustryFocusedSpeedTalent), typeof(IndustryParallelSpeedTalent));
             this.ModsPreInitialize();
-            this.Initialize(displayText: Localizer.DoStr("Butchery Table"), recipeType: typeof(ElectricButcheryTableRecipe));
+            this.Initialize(Localizer.DoStr("Electric Butchery Table"), typeof(ElectricButcheryTableRecipe));
             this.ModsPostInitialize();
-
-            // Register our RecipeFamily instance with the crafting system so it can be crafted.
-            CraftingComponent.AddRecipe(tableType: typeof(CarpentryTableObject), recipe: this);
+            CraftingComponent.AddRecipe(typeof(ElectricMachinistTableObject), this);
         }
 
         /// <summary>Hook for mods to customize RecipeFamily before initialization. You can change recipes, xp, labor, time here.</summary>
