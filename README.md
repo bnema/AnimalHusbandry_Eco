@@ -9,13 +9,9 @@ An updated version of the popular Animal Husbandry mod for the game Eco.
 - Created 3 world objects and 14 item prefabs from scratch and assigned icons to them, with the new meshes in separate FBX files for easier future development.
 - Added instructions for future developers to work on the client side part of the mod, by bringing the Client folder into a unity installation with ModKit installed, then into a unity project and building asset bundle via the AnimalHusbandryClient scene under the "ModKit" menu.
 
-## Why upgrade?
+## Installation
 
-The Electric Butchery Table offers better yield and takes fewer calories compared to its early game counterpart, making it a more efficient option for players.
-
-## Latest Changes
-
-The latest changes (as of January 3) have been made by [padmanek](https://github.com/padmanek) and can be found on [mod.io](https://mod.io/g/eco/m/animal-husbandry-97).
+The mod can be found on [mod.io](https://mod.io/g/eco/m/animal-husbandry-97).
 
 ## Credits
 
