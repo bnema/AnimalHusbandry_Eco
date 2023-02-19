@@ -324,6 +324,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2515259546412264968, guid: 656f73497d254294faaf2cf0276d7a3a, type: 3}
+      propertyPath: m_Center.x
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 2515259546412264974, guid: 656f73497d254294faaf2cf0276d7a3a, type: 3}
       propertyPath: m_Name
       value: SmallPenObject
@@ -375,6 +379,10 @@ PrefabInstance:
     - target: {fileID: 3002827380346614964, guid: 656f73497d254294faaf2cf0276d7a3a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8237274980598873231, guid: 656f73497d254294faaf2cf0276d7a3a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 656f73497d254294faaf2cf0276d7a3a, type: 3}
@@ -1249,6 +1257,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HerbivoreLureItem
       objectReference: {fileID: 0}
+    - target: {fileID: 1965367863331268379, guid: 38af32b85bd043944aea02bec7ed11cd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 38af32b85bd043944aea02bec7ed11cd, type: 3}
 --- !u!1001 &6089682938901848727
@@ -1358,6 +1370,10 @@ PrefabInstance:
     - target: {fileID: 3498000229269759292, guid: a1abff59b3e690c4aac9005dcf1e38ce, type: 3}
       propertyPath: m_Name
       value: SmallPenItem
+      objectReference: {fileID: 0}
+    - target: {fileID: 3498000229269759292, guid: a1abff59b3e690c4aac9005dcf1e38ce, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3715630902725929588, guid: a1abff59b3e690c4aac9005dcf1e38ce, type: 3}
       propertyPath: m_Pivot.x
