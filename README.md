@@ -19,21 +19,18 @@ The Client folder is only required if you're planning on rebuilding the Unity as
 - Created 3 world objects and 14 item prefabs from scratch and assigned icons to them, with the new meshes in separate FBX files for easier future development.
 - Added instructions for future developers to work on the client side part of the mod, by bringing the Client folder into a unity installation with ModKit installed, then into a unity project and building asset bundle via the AnimalHusbandryClient scene under the "ModKit" menu.
 
-### Version 1.2 
-- Fixed lvl 6 talent selection (Icons for talents are still missing but talents have tooltips and do work)
-- Added 250W Electric Power requirement to the currently Not-So-Electric Butchery Table
-- Fixed lack of collision between Electric Butchery Table and other objects
-- Adjusted Advanced Scrap Meat recipe to 15cal (down from 120cal)
+### Version 1.2  (Feb 15)
 
-## Why upgrade?
+- Fixed recipe for Electric Butchery Table to require Steel Plates, Saw Blades, and Industry labor, as intended by the original author. The recipe was previously changed to require boards, hewn logs, and Carpentry labor, which didn't make sense for a modern machine requiring electricity.
+- Rebuilt the mod's unity package in the included Client folder, fixing issues with the meshes of the smallPen and animalFeeder that resulted in inside-out meshes, as well as removing an unused sample mesh (Polyhymnia statue).
+- Created 3 world objects and 14 item prefabs from scratch and assigned icons to them, with the new meshes in separate FBX files for easier future development.
+- Added instructions for future developers to work on the client side part of the mod, by bringing the Client folder into a unity installation with ModKit installed, then into a unity project and building asset bundle via the AnimalHusbandryClient scene under the "ModKit" menu.
 
-The Electric Butchery Table offers better yield and takes fewer calories compared to its early game counterpart, making it a more efficient option for players.
+## Latest Download
 
-## Latest Changes
-
-Changes as of Feb 20, 2023 have been made by [AndyKorth](https://github.com/andykorth) and are merged into the github project.
-The changes as of January 3 have been made by [padmanek](https://github.com/padmanek) and can be found on [mod.io](https://mod.io/g/eco/m/animal-husbandry-97).
+The mod can be found on [mod.io](https://mod.io/g/eco/m/animal-husbandry-97).
 
 ## Credits
 
 This project is a collective update of the original Animal Husbandry mod created by Mysta.
+Contributors include [bnema](https://github.com/bnema), [padmanek](https://github.com/padmanek), [AndyKorth](https://github.com/andykorth).
