@@ -4,7 +4,7 @@
 
 namespace Eco.Mods.TechTree
 {
-        using System;
+    using System;
     using System.Collections.Generic;
     using Eco.Gameplay.Components;
     using Eco.Gameplay.DynamicValues;
@@ -17,7 +17,6 @@ namespace Eco.Mods.TechTree
     using Gameplay.Systems.TextLinks;
     using Eco.Shared.Localization;
 
-    /// <summary>Auto-generated class. Don't modify it! All your changes will be wiped with next update! Use Mods* partial methods instead for customization.</summary>
     [RequiresSkill(typeof(ButcherySkill), 1)] 
     public partial class ButcherGMSheepRecipe :
         RecipeFamily
@@ -42,8 +41,8 @@ namespace Eco.Mods.TechTree
                     })
             };
             this.ExperienceOnCraft = 4;  
-            this.LaborInCalories = CreateLaborInCaloriesValue(80, typeof(ButcherySkill)); 
-            this.CraftMinutes = CreateCraftTimeValue(typeof(ButcherGMSheepRecipe), 1.5f, typeof(ButcherySkill), typeof(ButcheryFocusedSpeedTalent), typeof(ButcheryParallelSpeedTalent));     
+            this.LaborInCalories = CreateLaborInCaloriesValue(50, typeof(ButcherySkill)); 
+            this.CraftMinutes = CreateCraftTimeValue(typeof(ButcherGMSheepRecipe), 0.75f, typeof(ButcherySkill), typeof(ButcheryFocusedSpeedTalent), typeof(ButcheryParallelSpeedTalent));     
             this.ModsPreInitialize();
             this.Initialize(Localizer.DoStr("Butcher GM Sheep"), typeof(ButcherGMSheepRecipe));
             this.ModsPostInitialize();

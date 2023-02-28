@@ -17,7 +17,6 @@ namespace Eco.Mods.TechTree
     using Gameplay.Systems.TextLinks;
     using Eco.Shared.Localization;
 
-    /// <summary>Auto-generated class. Don't modify it! All your changes will be wiped with next update! Use Mods* partial methods instead for customization.</summary>
     [RequiresSkill(typeof(ButcherySkill), 2)] 
     public partial class ButcherCowRecipe :
         RecipeFamily
@@ -35,13 +34,13 @@ namespace Eco.Mods.TechTree
                     },
                     new CraftingElement[]
                     {
-               new CraftingElement<RawMeatItem>(10), 
-               new CraftingElement<LeatherHideItem>(2),
+               new CraftingElement<RawMeatItem>(12), 
+               new CraftingElement<LeatherHideItem>(3),
     
                     })
             };
             this.ExperienceOnCraft = 5;  
-            this.LaborInCalories = CreateLaborInCaloriesValue(120, typeof(ButcherySkill)); 
+            this.LaborInCalories = CreateLaborInCaloriesValue(70, typeof(ButcherySkill)); 
             this.CraftMinutes = CreateCraftTimeValue(typeof(ButcherCowRecipe), 2, typeof(ButcherySkill), typeof(ButcheryFocusedSpeedTalent), typeof(ButcheryParallelSpeedTalent));     
             this.ModsPreInitialize();
             this.Initialize(Localizer.DoStr("Butcher Cow"), typeof(ButcherCowRecipe));
@@ -72,13 +71,13 @@ namespace Eco.Mods.TechTree
                     },
                     new CraftingElement[]
                     {
-               new CraftingElement<RawMeatItem>(10), 
-               new CraftingElement<LeatherHideItem>(2),    
+               new CraftingElement<RawMeatItem>(12), 
+               new CraftingElement<LeatherHideItem>(3),    
                     })
             };
             this.ExperienceOnCraft = 5;  
-            this.LaborInCalories = CreateLaborInCaloriesValue(120, typeof(ButcherySkill)); 
-            this.CraftMinutes = CreateCraftTimeValue(typeof(ButcherCowRecipe), 2, typeof(ButcherySkill), typeof(ButcheryFocusedSpeedTalent), typeof(ButcheryParallelSpeedTalent));     
+            this.LaborInCalories = CreateLaborInCaloriesValue(35, typeof(ButcherySkill)); 
+            this.CraftMinutes = CreateCraftTimeValue(typeof(ButcherCowRecipe), 1, typeof(ButcherySkill), typeof(ButcheryFocusedSpeedTalent), typeof(ButcheryParallelSpeedTalent));     
             this.ModsPreInitialize();
             this.Initialize(Localizer.DoStr("Butcher Cow"), typeof(ButcherCowRecipe));
             this.ModsPostInitialize();

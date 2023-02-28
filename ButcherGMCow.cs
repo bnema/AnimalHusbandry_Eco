@@ -4,7 +4,7 @@
 
 namespace Eco.Mods.TechTree
 {
-        using System;
+    using System;
     using System.Collections.Generic;
     using Eco.Gameplay.Components;
     using Eco.Gameplay.DynamicValues;
@@ -41,8 +41,8 @@ namespace Eco.Mods.TechTree
                     })
             };
             this.ExperienceOnCraft = 5;  
-            this.LaborInCalories = CreateLaborInCaloriesValue(120, typeof(ButcherySkill)); 
-            this.CraftMinutes = CreateCraftTimeValue(typeof(ButcherGMCowRecipe), 2, typeof(ButcherySkill), typeof(ButcheryFocusedSpeedTalent), typeof(ButcheryParallelSpeedTalent));     
+            this.LaborInCalories = CreateLaborInCaloriesValue(70, typeof(ButcherySkill)); 
+            this.CraftMinutes = CreateCraftTimeValue(typeof(ButcherGMCowRecipe), 1, typeof(ButcherySkill), typeof(ButcheryFocusedSpeedTalent), typeof(ButcheryParallelSpeedTalent));     
             this.ModsPreInitialize();
             this.Initialize(Localizer.DoStr("Butcher GM Cow"), typeof(ButcherGMCowRecipe));
             this.ModsPostInitialize();
