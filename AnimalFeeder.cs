@@ -55,15 +55,7 @@ namespace Eco.Mods.TechTree
        public override LocString DisplayName => Localizer.DoStr("Animal Feeder");
        public override TableTextureMode TableTexture => TableTextureMode.Wood;
 
-
-        protected override void Initialize()
-        {
-            this.ModsPreInitialize();
-            this.GetComponent<MinimapComponent>().SetCategory(Localizer.DoStr("Cooking"));
-            this.ModsPostInitialize();
-        }    
-
-               static AnimalFeederObject()
+        static AnimalFeederObject()
         {
             AddOccupancy<AnimalFeederObject>(new List<BlockOccupancy>()
             {
@@ -73,6 +65,14 @@ namespace Eco.Mods.TechTree
             new BlockOccupancy(new Vector3i(-1, 1, 0)),
             });
         }
+
+        protected override void Initialize()
+        {
+            this.ModsPreInitialize();
+            this.GetComponent<MinimapComponent>().SetCategory(Localizer.DoStr("Cooking"));
+            this.ModsPostInitialize();
+        }    
+
         /// <summary>Hook for mods to customize WorldObject before initialization. You can change housing values here.</summary>
         partial void ModsPreInitialize();
         /// <summary>Hook for mods to customize WorldObject after initialization.</summary>
@@ -88,8 +88,8 @@ namespace Eco.Mods.TechTree
         public override LocString DisplayDescription => Localizer.DoStr("A feeder to lure and breed animals.");
 
         public override DirectionAxisFlags RequiresSurfaceOnSides { get;} = 0
-                    | DirectionAxisFlags.Down
-                ;
+                    | DirectionAxisFlags.Down;
+                    
        [Serialized, TooltipChildren] public object PersistentData { get; set; }
     }
 

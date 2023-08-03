@@ -41,8 +41,26 @@ namespace Eco.Mods.TechTree
     [RequireComponent(typeof(PropertyAuthComponent))]
     [RequireComponent(typeof(LinkComponent))]
     [RequireComponent(typeof(PublicStorageComponent))]
+    [RequireComponent(typeof(SolidAttachedSurfaceRequirementComponent))]
     public partial class SmallPenObject : WorldObject, IRepresentsItem
-    {
+    {   
+        static SmallPenObject()
+        {
+            AddOccupancy<SmallPenObject>(new List<BlockOccupancy>() {
+            new BlockOccupancy(new Vector3i(0, 0, 0)),
+            new BlockOccupancy(new Vector3i(0, 1, 0)),
+            new BlockOccupancy(new Vector3i(1, 0, 0)),
+            new BlockOccupancy(new Vector3i(1, 1, 0)),
+            new BlockOccupancy(new Vector3i(0, 0, 1)),
+            new BlockOccupancy(new Vector3i(0, 1, 1)),
+            new BlockOccupancy(new Vector3i(1, 0, 1)),
+            new BlockOccupancy(new Vector3i(1, 1, 1)),
+            new BlockOccupancy(new Vector3i(0, 1, 2)),
+            new BlockOccupancy(new Vector3i(1, 0, 2)),
+            new BlockOccupancy(new Vector3i(1, 1, 2)),
+            });
+        }
+        
         public override LocString DisplayName { get { return Localizer.DoStr("Small Pen"); } }
         public override TableTextureMode TableTexture => TableTextureMode.Wood;
         public virtual Type RepresentedItemType { get { return typeof(SmallPenItem); } }
@@ -60,24 +78,7 @@ namespace Eco.Mods.TechTree
         {
             base.Destroy();
         }
-           
-            static SmallPenObject()
-        {
-            AddOccupancy<SmallPenObject>(new List<BlockOccupancy>()
-            {
-            new BlockOccupancy(new Vector3i(0, 0, 0)),
-            new BlockOccupancy(new Vector3i(0, 1, 0)),
-            new BlockOccupancy(new Vector3i(-1, 0, 0)),
-            new BlockOccupancy(new Vector3i(-1, 1, 0)),
-            new BlockOccupancy(new Vector3i(0, 0, 1)),
-            new BlockOccupancy(new Vector3i(0, 1, 1)),
-            new BlockOccupancy(new Vector3i(-1, 0, 1)),
-            new BlockOccupancy(new Vector3i(-1, 1, 1)),
-            new BlockOccupancy(new Vector3i(0, 1, 2)),
-            new BlockOccupancy(new Vector3i(-1, 0, 2)),
-            new BlockOccupancy(new Vector3i(-1, 1, 2)),
-            });
-        }
+
         /// <summary>Hook for mods to customize WorldObject before initialization. You can change housing values here.</summary>
         partial void ModsPreInitialize();
         /// <summary>Hook for mods to customize WorldObject after initialization.</summary>
@@ -89,8 +90,10 @@ namespace Eco.Mods.TechTree
     [Ecopedia("Crafted Objects", "Storage", createAsSubPage: true)]
     public partial class SmallPenItem : WorldObjectItem<SmallPenObject>
     {
-        public override LocString DisplayDescription => Localizer.DoStr("A pen for Cows and sheep.");
+        public override LocString DisplayDescription => Localizer.DoStr("A pen to hold cows and sheep.");
 
+        public override DirectionAxisFlags RequiresSurfaceOnSides { get;} = 0
+                    | DirectionAxisFlags.Down;
 
     }
    [RequiresSkill(typeof(CarpentrySkill), 1)]
